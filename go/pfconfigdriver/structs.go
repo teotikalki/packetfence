@@ -154,7 +154,7 @@ type configStruct struct {
 		General       PfConfGeneral
 		Fencing       PfConfFencing
 		CaptivePortal PfConfCaptivePortal
-                Webservices   PfConfWebservices
+		Webservices   PfConfWebservices
 	}
 }
 
@@ -226,4 +226,13 @@ type NetInterface struct {
 	Type           string `json:"type"`
 	Enforcement    string `json:"enforcement"`
 	Mask           string `json:"mask"`
+}
+
+type PassthroughsConf struct {
+	StructConfig
+	PfconfigMethod string `val:"hash_element"`
+	PfconfigNS     string `val:"resource::passthroughs"`
+	PfconfigArray  string `val:"_"`
+	Wildcard       map[string]interface{}
+	Normal         map[string]interface{}
 }
