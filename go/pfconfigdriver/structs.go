@@ -233,6 +233,6 @@ type PassthroughsConf struct {
 	PfconfigMethod string `val:"hash_element"`
 	PfconfigNS     string `val:"resource::passthroughs"`
 	PfconfigArray  string `val:"_"`
-	Wildcard       map[string]interface{}
-	Normal         map[string]interface{}
+	Wildcard       map[string][]string
+	Normal         map[string][]string
 }
