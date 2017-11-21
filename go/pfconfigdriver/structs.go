@@ -187,6 +187,40 @@ type NetworkConf struct {
 	DhcpDefaultLeaseTime string `json:"dhcp_default_lease_time"`
 	NextHop              string `json:"next_hop"`
 	SplitNetwork         string `json:"split_network"`
+	RegNetwork           string `json:"reg_network"`
+}
+
+type Interface struct {
+	InterfaceName string `json:"int"`
+	Mask          string `json:"mask"`
+	Ip            string `json:"ip"`
+	Cidr          string `json:"cidr"`
+}
+
+type RessourseNetworkConf struct {
+	StructConfig
+	PfconfigMethod       string    `val:"hash_element"`
+	PfconfigNS           string    `val:"resource::network_config"`
+	PfconfigHashNS       string    `val:"-"`
+	Dns                  string    `json:"dns"`
+	DhcpStart            string    `json:"dhcp_start"`
+	Gateway              string    `json:"gateway"`
+	DomainName           string    `json:"domain-name"`
+	NatEnabled           string    `json:"nat_enabled"`
+	DhcpMaxLeaseTime     string    `json:"dhcp_max_lease_time"`
+	Named                string    `json:"named"`
+	FakeMacEnabled       string    `json:"fake_mac_enabled"`
+	Dhcpd                string    `json:"dhcpd"`
+	DhcpEnd              string    `json:"dhcp_end"`
+	Type                 string    `json:"type"`
+	Netmask              string    `json:"netmask"`
+	DhcpDefaultLeaseTime string    `json:"dhcp_default_lease_time"`
+	NextHop              string    `json:"next_hop"`
+	SplitNetwork         string    `json:"split_network"`
+	RegNetwork           string    `json:"reg_network"`
+	Dnsvip               string    `json:"dns_vip"`
+	ClusterIPs           string    `json:"cluster_ips"`
+	Interface            Interface `json:"interface"`
 }
 
 type PfRoles struct {
@@ -238,10 +272,10 @@ type PassthroughsConf struct {
 }
 
 type PassthroughsIsolationConf struct {
-        StructConfig
-        PfconfigMethod string `val:"hash_element"`
-        PfconfigNS     string `val:"resource::isolation_passthroughs"`
-        PfconfigArray  string `val:"_"`
-        Wildcard       map[string][]string
-        Normal         map[string][]string
+	StructConfig
+	PfconfigMethod string `val:"hash_element"`
+	PfconfigNS     string `val:"resource::isolation_passthroughs"`
+	PfconfigArray  string `val:"_"`
+	Wildcard       map[string][]string
+	Normal         map[string][]string
 }
