@@ -38,6 +38,8 @@ has 'root_module' => (is => 'rw', isa => "captiveportal::DynamicRouting::Module:
 
 has 'root_module_id' => (is => 'rw');
 
+has 'sub_root_module_id' => (is => 'rw');
+
 has 'request' => (is => 'ro', required => 1);
 
 has 'hashed_params' => (is => 'rw');
