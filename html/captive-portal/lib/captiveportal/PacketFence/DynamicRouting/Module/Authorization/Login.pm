@@ -141,6 +141,14 @@ sub authorize {
         $self->username($username);
         $self->source(pf::authentication::getAuthenticationSource($source_id));
         while(my ($action, $params) = each %{$self->actions}){
+            if ($action eq 'custom') {
+                my @action = split('=',@{$params}[0]);
+                if ($role eq $action[0]) {
+                    $self->app->session->{'sub_root_module_id'} = $action[1];
+                    $self->redirect_root();
+                    return;
+                }
+            }
             if ($action eq 'on_success') {
                  $self->app->session->{'sub_root_module_id'} = @{$params}[0];
                  $self->redirect_root();

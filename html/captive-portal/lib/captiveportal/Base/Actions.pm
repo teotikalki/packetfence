@@ -35,6 +35,7 @@ our %AUTHENTICATION_ACTIONS = (
     bandwidth_balance_from_source => sub { $_[0]->new_node_info->{bandwidth_balance} = pf::util::unpretty_bandwidth(pf::authentication::match($_[0]->source->id, $_[0]->auth_source_params, $Actions::SET_BANDWIDTH_BALANCE)); },
     on_failure => sub {},
     on_success => sub {},
+    custom => sub {},
 );
 
 =head1 AUTHOR

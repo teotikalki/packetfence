@@ -25,6 +25,7 @@
           <option value="[% root_module %]"> [% root_module %] </option>
        [% END %]
      </select>
+     <input data-required="1" id="custom_action_match" name="custom_action_match" value="" class="text input-small" type="text">
      <input data-required="1" id="set_unregdate_action_match" name="set_unregdate_action_match" value="" class="input-date input-small" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd" type="text">
      <input data-required="1" id="set_bandwidth_balance_action_match" name="set_bandwidth_balance_action_match" value="" class="text input-small" type="text">
   </div>
