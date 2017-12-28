@@ -62,7 +62,8 @@ sub available_actions {
         'role_from_source',
         'time_balance_from_source',
         'bandwidth_balance_from_source',
-        'on_failure'
+        'on_failure',
+        'on_success',
     ];
 }
 

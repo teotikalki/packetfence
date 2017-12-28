@@ -228,6 +228,13 @@ sub authenticate {
             pf::auth_log::record_auth($source_id, $self->current_mac, $username, $pf::auth_log::COMPLETED, $self->app->profile->name);
             # Logging USER/IP/MAC of the just-authenticated user
             get_logger->info("Successfully authenticated ".$username);
+            while(my ($action, $params) = each %{$self->actions}){
+                if ($action eq 'on_success') {
+                     $self->app->session->{'sub_root_module_id'} = @{$params}[0];
+                     $self->redirect_root();
+                     return;
+                }
+            }
         } elsif ($return == $LOGIN_CHALLENGE) {
             $self->challenge_data($message);
             $self->display_challenge();
