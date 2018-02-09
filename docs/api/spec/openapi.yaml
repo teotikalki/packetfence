@@ -122,6 +122,129 @@ components:
               $ref: '#/components/schemas/ApiUser'
             type: array
         type: object
+    AuditLog:
+      properties:
+        tenant_id:
+          description: The unique identifier of the client tenant
+          type: string
+        mac:
+          description: The MAC address of the device
+          type: string
+        ip:
+          description: The IPv4 address of the device
+          type: string
+        computer_name: 
+          description: The computer name from the radius request
+          type: string
+        user_name:
+          description: The user name from the radius_request
+          type: string
+        stripped_user_name: 
+          description: The user name of the clients connection
+          type: string
+        realm:
+          description: The clients realm
+          type: string
+        event_type:
+          description: (eg: Radius-Access-Request)
+          type: string
+        switch_id:
+          description: The unique switch identifer
+          type: string
+        switch_mac: 
+          description: The switch MAC address 
+          type: string
+        switch_ip_address: 
+          description: The switch IPv4 address
+          type: string
+        radius_source_ip_address:
+          description: The switch IPv4 address
+          type: string
+        called_station_id:
+          description: The IPv4 address of the called station
+          type: string
+        calling_station_id:
+          description: The IPv4 address of the calling station
+          type: string
+        nas_port_type:
+          description: The radius server port type (eg: Wireless-802.11|Ethernet)
+          type: string
+        ssid: 
+          description: The SSID of the client connection
+          type: string
+        nas_port_id:
+          description: The radius server unqiue port identifier (eg: GigabitEthernet1/0/48)
+          type: string
+        ifindex:
+          description: 
+          type: string
+        nas_port:
+          description: The radius server port
+          type: integer
+        connection_type:
+          description: The client connection type
+          type: string
+        nas_ip_address:
+          description: The radius server IPv4 address
+          type: string
+        nas_identifier:
+          description: The radius access request identifier
+          type: string
+        auth_status:
+          description: The radius access request response
+          type: string
+        reason:
+          description: The radius access request response reject reason
+          type: string
+        auth_type:
+          description: The radius access request type
+          type: string
+        eap_type:
+          description: The radius access request vendor specific eap type
+          type: string
+        role:
+          description: The role of the connection profile
+          type: string
+        node_status:
+          description: The node status (eg: reg|unreg)
+          type: string
+        profile:
+          description: The connection profile
+          type: string
+        source:
+          description: The authentication source
+          type: string
+        auto_reg:
+          description: 
+          type: string
+        is_phone:
+          description: 
+          type: string
+        pf_domain:
+          description: 
+          type: string
+        uuid:
+          description: 
+          type: string
+        radius_request:
+          description: The full radius request 
+          type: string
+        radius_reply:
+          description: The full radius response
+          type: string
+        request_time      
+          description: 
+          type: integer
+      type: object
+    AuditLogList:
+      allOf:
+      - $ref: '#/components/schemas/Iterable'
+      - properties:
+          items:
+            items:
+              $ref: '#/components/schemas/AuditLog'
+            type: array
+        type: object        
     ConnectionProfile:
       properties:
         access_registration_when_registered:
@@ -675,6 +798,51 @@ paths:
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
       summary: Allows to update a whole user
+  /auditlogs:
+    get:
+      description: The list of radius audit logs will be limited to 100 and a cursor will be returned
+        for iterating on other logs. Iteration is only needed if the nextCursor is
+        not an empty value.
+      parameters:
+      - $ref: '#/components/parameters/cursor'
+      - &1
+        description: The tenant ID to use for this request. Can only be used if the
+          API user has access to other tenants. When empty, it will default to use
+          the tenant attached to the token.
+        in: header
+        name: X-PacketFence-Tenant-Id
+        required: 0
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogList'
+          description: List of radius audit logs
+      summary: Returns a list of radius audit logs
+  /auditlog/{auditlog_id}:
+    get:
+      parameters:
+      - description: The radius audit log ID to fetch
+        in: path
+        name: auditlog_id
+        required: true
+        schema:
+          type: integer
+      - *1
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  item:
+                    $ref: '#/components/schemas/AuditLog'
+                type: object
+          description: A specific radius audit log
+      summary: Returns a specific radius audit log by its ID      
   /config/connection_profiles:
     get:
       parameters:
