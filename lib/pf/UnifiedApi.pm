@@ -148,6 +148,16 @@ our @API_V1_ROUTES = (
             }
         },
     },
+    { 
+        controller => 'Authentication',
+        allow_singular => 1,
+        collection => {
+            subroutes    => {
+                'authenticate' => { post => 'authenticate' },
+                'match' => { post => 'match' },
+            },
+        },      
+    },
 );
 
 sub startup {
