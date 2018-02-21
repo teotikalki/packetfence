@@ -153,8 +153,7 @@ our @API_V1_ROUTES = (
         allow_singular => 1,
         collection => {
             subroutes    => {
-                'authenticate' => { post => 'authenticate' },
-                'match' => { post => 'match' },
+                'admin_authentication' => { post => 'adminAuthentication' },
             },
         },      
     },
