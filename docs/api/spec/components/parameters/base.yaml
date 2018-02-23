@@ -29,3 +29,11 @@ logic_operator:
   schema:
     type: string
   description: The logic operator to use for the search query. Can either be all or any.
+  
+local:
+  in: query
+  name: local
+  required: false
+  schema:
+    type: integer
+  description: The local is used to determine if the request should be forwarded to the rest of the cluster. A value of '0' forwards the request and either a missing or alternate value does not forward the request to the rest of the cluster.
